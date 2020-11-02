@@ -13,47 +13,56 @@ info:
       * in a specified mode
       * on a specified band
       * at a specified date and timeusing a specified station callsign
-  title: QRZ XML Logbook Data Specification
+  title: Logbook of the World Query API
   version: "1.0"
 externalDocs:
   description: Textual description of the spec
   url: https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/
 servers:
-  - url: https://lotw.arrl.org/
+- url: https://lotw.arrl.org/
 paths:
   /lotwuser/lotwreport.adi:
     get:
-      summary: The do-everything endpoint
       parameters:
-        - name: login
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: qso_query
-          in: query
-          required: true
-          schema:
-            type: string
-        - name: qso_qsl
-          in: query
-          required: false
-          schema:
-            type: string
-          description: If "yes", only QSL records are returned
-        - name: qso_qslsince
-          in: query
-          required: false
-          schema:
-            type: string
-          description: -|
-            Returns QSL records received (matched or updated) on or after the specified date. Will
-            also accept date/time in "YYYY-MM-DD HH:MM:SS" format.
+      - explode: true
+        in: query
+        name: login
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: password
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: qso_query
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: If "yes", only QSL records are returned
+        explode: true
+        in: query
+        name: qso_qsl
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: -| Returns QSL records received (matched or updated) on or after
+          the specified date. Will also accept date/time in "YYYY-MM-DD HH:MM:SS"
+          format.
+        explode: true
+        in: query
+        name: qso_qslsince
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -61,3 +70,6 @@ paths:
               schema:
                 type: string
           description: response
+      summary: The do-everything endpoint
+components:
+  schemas: {}
