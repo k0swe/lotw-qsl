@@ -1,0 +1,63 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: k0swe@arrl.net
+  description: |-
+    LoTW provides a web service that accepts RESTful queries that report QSOs
+      satisfying specified criteria:
+
+      * accepted by LoTW after a specified date
+      * confirmed by LoTW after a specified date
+      * with a specified callsign
+      * with an operator in a specified DXCC entity
+      * in a specified mode
+      * on a specified band
+      * at a specified date and timeusing a specified station callsign
+  title: QRZ XML Logbook Data Specification
+  version: "1.0"
+externalDocs:
+  description: Textual description of the spec
+  url: https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/
+servers:
+  - url: https://lotw.arrl.org/
+paths:
+  /lotwuser/lotwreport.adi:
+    get:
+      summary: The do-everything endpoint
+      parameters:
+        - name: login
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: qso_query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: qso_qsl
+          in: query
+          required: false
+          schema:
+            type: string
+          description: If "yes", only QSL records are returned
+        - name: qso_qslsince
+          in: query
+          required: false
+          schema:
+            type: string
+          description: -|
+            Returns QSL records received (matched or updated) on or after the specified date. Will
+            also accept date/time in "YYYY-MM-DD HH:MM:SS" format.
+      responses:
+        "200":
+          content:
+            application/x-arrl-adif; charset=iso-8859-1:
+              schema:
+                type: string
+          description: response
