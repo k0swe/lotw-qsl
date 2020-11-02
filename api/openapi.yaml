@@ -23,8 +23,11 @@ servers:
 paths:
   /lotwuser/lotwreport.adi:
     get:
+      operationId: query
       parameters:
-      - explode: true
+      - description: Note that while the user's primary call sign is usually the username,
+          this is not always the case and should not be assumed.
+        explode: true
         in: query
         name: login
         required: true
@@ -38,12 +41,14 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
+      - description: If absent, ADIF file will contain no QSO records
+        explode: true
         in: query
         name: qso_query
         required: true
         schema:
-          type: string
+          format: int32
+          type: integer
         style: form
       - description: If "yes", only QSL records are returned
         explode: true
@@ -53,9 +58,9 @@ paths:
         schema:
           type: string
         style: form
-      - description: -| Returns QSL records received (matched or updated) on or after
+      - description: Returns QSL records received (matched or updated) on or after
           the specified date. Will also accept date/time in "YYYY-MM-DD HH:MM:SS"
-          format.
+          format. Ignored unless qso_qsl="yes".
         explode: true
         in: query
         name: qso_qslsince
@@ -63,13 +68,122 @@ paths:
         schema:
           type: string
         style: form
+      - description: Returns QSO records received (uploaded) on or after the specified
+          date. Will also accept date/time in "YYYY-MM-DD HH:MM:SS" format. Ignored
+          unless qso_qsl="no".
+        explode: true
+        in: query
+        name: qso_qsorxsince
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records whose "own" call sign matches.
+        explode: true
+        in: query
+        name: qso_owncall
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records whose "worked" call sign matches.
+        explode: true
+        in: query
+        name: qso_callsign
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records whose mode matches. Mode must be one of
+          the allowed modes.
+        explode: true
+        in: query
+        name: qso_mode
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records whose DXCC entity matches. (This implies
+          qso_qsl="yes" since the DXCC entity of un-QSL'd stations isn't known to
+          LoTW.) Value must be the ARRL DXCC entity number.
+        explode: true
+        in: query
+        name: qso_dxcc
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records with a QSO date on or after the specified
+          value.
+        explode: true
+        in: query
+        name: qso_startdate
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records with a QSO time at or after the specified
+          value on the starting date. This value is ignored if qso_startdate is not
+          provided.
+        explode: true
+        in: query
+        name: qso_starttime
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records with a QSO date on or before the specified
+          value.
+        explode: true
+        in: query
+        name: qso_enddate
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Returns only records with a QSO time at or before the specified
+          value on the ending date. This value is ignored if qso_enddate is not provided.
+        explode: true
+        in: query
+        name: qso_endtime
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If "yes", returns fields that contain the Logging station's location
+          data, if any.
+        explode: true
+        in: query
+        name: qso_mydetail
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If "yes", returns fields that contain the QSLing station's location
+          data, if any.
+        explode: true
+        in: query
+        name: qso_qsldetail
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If "yes", each record contains the STATION_CALLSIGN and APP_LoTW_OWNCALL
+          fields to identify the "own" call sign used for the QSO.
+        explode: true
+        in: query
+        name: qso_withown
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
-            application/x-arrl-adif; charset=iso-8859-1:
+            application/x-arrl-adif:
               schema:
                 type: string
           description: response
-      summary: The do-everything endpoint
+      summary: Querying LoTW for Acceptance and Confirmation of Submitted QSOs
 components:
   schemas: {}

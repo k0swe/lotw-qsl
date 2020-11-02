@@ -41,7 +41,7 @@ All URIs are relative to *https://lotw.arrl.org*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**LotwuserLotwreportAdiGet**](docs/DefaultApi.md#lotwuserlotwreportadiget) | **Get** /lotwuser/lotwreport.adi | The do-everything endpoint
+*DefaultApi* | [**Query**](docs/DefaultApi.md#query) | **Get** /lotwuser/lotwreport.adi | Querying LoTW for Acceptance and Confirmation of Submitted QSOs
 
 
 ## Documentation For Models
