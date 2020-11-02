@@ -29,43 +29,43 @@ type DefaultApiService service
 
 // QueryOpts Optional parameters for the method 'Query'
 type QueryOpts struct {
-	QsoQsl        optional.String
+	QsoQsl        optional.Interface
 	QsoQslsince   optional.String
 	QsoQsorxsince optional.String
 	QsoOwncall    optional.String
 	QsoCallsign   optional.String
 	QsoMode       optional.String
-	QsoDxcc       optional.String
+	QsoDxcc       optional.Int32
 	QsoStartdate  optional.String
 	QsoStarttime  optional.String
 	QsoEnddate    optional.String
 	QsoEndtime    optional.String
-	QsoMydetail   optional.String
-	QsoQsldetail  optional.String
-	QsoWithown    optional.String
+	QsoMydetail   optional.Interface
+	QsoQsldetail  optional.Interface
+	QsoWithown    optional.Interface
 }
 
 /*
 Query Querying LoTW for Acceptance and Confirmation of Submitted QSOs
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param login Note that while the user's primary call sign is usually the username, this is not always the case and should not be assumed.
- * @param password
+ * @param password The user's plaintext LotW password.
  * @param qsoQuery If absent, ADIF file will contain no QSO records
  * @param optional nil or *QueryOpts - Optional Parameters:
- * @param "QsoQsl" (optional.String) -  If \"yes\", only QSL records are returned
+ * @param "QsoQsl" (optional.Interface of YesOrNo) -  If \"yes\", only QSL records are returned
  * @param "QsoQslsince" (optional.String) -  Returns QSL records received (matched or updated) on or after the specified date. Will also accept date/time in \"YYYY-MM-DD HH:MM:SS\" format. Ignored unless qso_qsl=\"yes\".
  * @param "QsoQsorxsince" (optional.String) -  Returns QSO records received (uploaded) on or after the specified date. Will also accept date/time in \"YYYY-MM-DD HH:MM:SS\" format. Ignored unless qso_qsl=\"no\".
  * @param "QsoOwncall" (optional.String) -  Returns only records whose \"own\" call sign matches.
  * @param "QsoCallsign" (optional.String) -  Returns only records whose \"worked\" call sign matches.
  * @param "QsoMode" (optional.String) -  Returns only records whose mode matches. Mode must be one of the allowed modes.
- * @param "QsoDxcc" (optional.String) -  Returns only records whose DXCC entity matches. (This implies qso_qsl=\"yes\" since the DXCC entity of un-QSL'd stations isn't known to LoTW.) Value must be the ARRL DXCC entity number.
+ * @param "QsoDxcc" (optional.Int32) -  Returns only records whose DXCC entity matches. (This implies qso_qsl=\"yes\" since the DXCC entity of un-QSL'd stations isn't known to LoTW.) Value must be the ARRL DXCC entity number.
  * @param "QsoStartdate" (optional.String) -  Returns only records with a QSO date on or after the specified value.
  * @param "QsoStarttime" (optional.String) -  Returns only records with a QSO time at or after the specified value on the starting date. This value is ignored if qso_startdate is not provided.
  * @param "QsoEnddate" (optional.String) -  Returns only records with a QSO date on or before the specified value.
  * @param "QsoEndtime" (optional.String) -  Returns only records with a QSO time at or before the specified value on the ending date. This value is ignored if qso_enddate is not provided.
- * @param "QsoMydetail" (optional.String) -  If \"yes\", returns fields that contain the Logging station's location data, if any.
- * @param "QsoQsldetail" (optional.String) -  If \"yes\", returns fields that contain the QSLing station's location data, if any.
- * @param "QsoWithown" (optional.String) -  If \"yes\", each record contains the STATION_CALLSIGN and APP_LoTW_OWNCALL fields to identify the \"own\" call sign used for the QSO.
+ * @param "QsoMydetail" (optional.Interface of YesOrNo) -  If \"yes\", returns fields that contain the Logging station's location data, if any.
+ * @param "QsoQsldetail" (optional.Interface of YesOrNo) -  If \"yes\", returns fields that contain the QSLing station's location data, if any.
+ * @param "QsoWithown" (optional.Interface of YesOrNo) -  If \"yes\", each record contains the STATION_CALLSIGN and APP_LoTW_OWNCALL fields to identify the \"own\" call sign used for the QSO.
 @return string
 */
 func (a *DefaultApiService) Query(ctx _context.Context, login string, password string, qsoQuery int32, localVarOptionals *QueryOpts) (string, *_nethttp.Response, error) {

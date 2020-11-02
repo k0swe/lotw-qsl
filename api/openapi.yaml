@@ -27,6 +27,7 @@ paths:
       parameters:
       - description: Note that while the user's primary call sign is usually the username,
           this is not always the case and should not be assumed.
+        example: k0swe
         explode: true
         in: query
         name: login
@@ -34,14 +35,18 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
+      - description: The user's plaintext LotW password.
+        example: notmypassword
+        explode: true
         in: query
         name: password
         required: true
         schema:
+          format: password
           type: string
         style: form
       - description: If absent, ADIF file will contain no QSO records
+        example: 1
         explode: true
         in: query
         name: qso_query
@@ -56,7 +61,7 @@ paths:
         name: qso_qsl
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/YesOrNo'
         style: form
       - description: Returns QSL records received (matched or updated) on or after
           the specified date. Will also accept date/time in "YYYY-MM-DD HH:MM:SS"
@@ -66,7 +71,7 @@ paths:
         name: qso_qslsince
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/DateTime'
         style: form
       - description: Returns QSO records received (uploaded) on or after the specified
           date. Will also accept date/time in "YYYY-MM-DD HH:MM:SS" format. Ignored
@@ -76,7 +81,7 @@ paths:
         name: qso_qsorxsince
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/DateTime'
         style: form
       - description: Returns only records whose "own" call sign matches.
         explode: true
@@ -84,7 +89,7 @@ paths:
         name: qso_owncall
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/Callsign'
         style: form
       - description: Returns only records whose "worked" call sign matches.
         explode: true
@@ -92,7 +97,7 @@ paths:
         name: qso_callsign
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/Callsign'
         style: form
       - description: Returns only records whose mode matches. Mode must be one of
           the allowed modes.
@@ -111,7 +116,8 @@ paths:
         name: qso_dxcc
         required: false
         schema:
-          type: string
+          format: int32
+          type: integer
         style: form
       - description: Returns only records with a QSO date on or after the specified
           value.
@@ -120,7 +126,7 @@ paths:
         name: qso_startdate
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/Date'
         style: form
       - description: Returns only records with a QSO time at or after the specified
           value on the starting date. This value is ignored if qso_startdate is not
@@ -130,7 +136,7 @@ paths:
         name: qso_starttime
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/Time'
         style: form
       - description: Returns only records with a QSO date on or before the specified
           value.
@@ -139,7 +145,7 @@ paths:
         name: qso_enddate
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/Date'
         style: form
       - description: Returns only records with a QSO time at or before the specified
           value on the ending date. This value is ignored if qso_enddate is not provided.
@@ -148,7 +154,7 @@ paths:
         name: qso_endtime
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/Time'
         style: form
       - description: If "yes", returns fields that contain the Logging station's location
           data, if any.
@@ -157,7 +163,7 @@ paths:
         name: qso_mydetail
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/YesOrNo'
         style: form
       - description: If "yes", returns fields that contain the QSLing station's location
           data, if any.
@@ -166,7 +172,7 @@ paths:
         name: qso_qsldetail
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/YesOrNo'
         style: form
       - description: If "yes", each record contains the STATION_CALLSIGN and APP_LoTW_OWNCALL
           fields to identify the "own" call sign used for the QSO.
@@ -175,7 +181,7 @@ paths:
         name: qso_withown
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/YesOrNo'
         style: form
       responses:
         "200":
@@ -186,4 +192,20 @@ paths:
           description: response
       summary: Querying LoTW for Acceptance and Confirmation of Submitted QSOs
 components:
-  schemas: {}
+  schemas:
+    Callsign:
+      type: string
+    YesOrNo:
+      enum:
+      - "yes"
+      - "no"
+      type: string
+    DateTime:
+      pattern: ^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$
+      type: string
+    Date:
+      pattern: ^\d{4}-\d{2}-\d{2}
+      type: string
+    Time:
+      pattern: ^\d{2}:\d{2}:\d{2}$
+      type: string

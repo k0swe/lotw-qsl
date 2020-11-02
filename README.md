@@ -46,6 +46,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [YesOrNo](docs/YesOrNo.md)
 
 
 ## Documentation For Authorization
