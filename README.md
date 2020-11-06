@@ -1,3 +1,5 @@
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/k0swe/lotw-qsl)](https://pkg.go.dev/github.com/k0swe/lotw-qsl)
+
 # Go API client for lotw
 
 LoTW provides a web service that accepts RESTful queries that report QSOs
