@@ -1,4 +1,5 @@
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/k0swe/lotw-qsl)](https://pkg.go.dev/github.com/k0swe/lotw-qsl)
+[![Go Report Card](https://goreportcard.com/badge/github.com/k0swe/lotw-qsl)](https://goreportcard.com/report/github.com/k0swe/lotw-qsl)
 
 # Go API client for lotw
 
