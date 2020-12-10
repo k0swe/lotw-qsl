@@ -35,6 +35,7 @@ type QueryOpts struct {
 	QsoOwncall    optional.String
 	QsoCallsign   optional.String
 	QsoMode       optional.String
+	QsoBand       optional.String
 	QsoDxcc       optional.Int32
 	QsoStartdate  optional.String
 	QsoStarttime  optional.String
@@ -58,6 +59,7 @@ Query Querying LoTW for Acceptance and Confirmation of Submitted QSOs
  * @param "QsoOwncall" (optional.String) -  Returns only records whose \"own\" call sign matches.
  * @param "QsoCallsign" (optional.String) -  Returns only records whose \"worked\" call sign matches.
  * @param "QsoMode" (optional.String) -  Returns only records whose mode matches. Mode must be one of the allowed modes.
+ * @param "QsoBand" (optional.String) -  Returns only records whose band matches. Mode must be one of the allowed bands.
  * @param "QsoDxcc" (optional.Int32) -  Returns only records whose DXCC entity matches. (This implies qso_qsl=\"yes\" since the DXCC entity of un-QSL'd stations isn't known to LoTW.) Value must be the ARRL DXCC entity number.
  * @param "QsoStartdate" (optional.String) -  Returns only records with a QSO date on or after the specified value.
  * @param "QsoStarttime" (optional.String) -  Returns only records with a QSO time at or after the specified value on the starting date. This value is ignored if qso_startdate is not provided.
@@ -104,6 +106,9 @@ func (a *DefaultApiService) Query(ctx _context.Context, login string, password s
 	}
 	if localVarOptionals != nil && localVarOptionals.QsoMode.IsSet() {
 		localVarQueryParams.Add("qso_mode", parameterToString(localVarOptionals.QsoMode.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.QsoBand.IsSet() {
+		localVarQueryParams.Add("qso_band", parameterToString(localVarOptionals.QsoBand.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.QsoDxcc.IsSet() {
 		localVarQueryParams.Add("qso_dxcc", parameterToString(localVarOptionals.QsoDxcc.Value(), ""))

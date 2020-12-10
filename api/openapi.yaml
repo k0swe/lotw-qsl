@@ -108,6 +108,15 @@ paths:
         schema:
           type: string
         style: form
+      - description: Returns only records whose band matches. Mode must be one of
+          the allowed bands.
+        explode: true
+        in: query
+        name: qso_band
+        required: false
+        schema:
+          type: string
+        style: form
       - description: Returns only records whose DXCC entity matches. (This implies
           qso_qsl="yes" since the DXCC entity of un-QSL'd stations isn't known to
           LoTW.) Value must be the ARRL DXCC entity number.

@@ -41,6 +41,7 @@ Name | Type | Description  | Notes
  **qsoOwncall** | **optional.String**| Returns only records whose \&quot;own\&quot; call sign matches. | 
  **qsoCallsign** | **optional.String**| Returns only records whose \&quot;worked\&quot; call sign matches. | 
  **qsoMode** | **optional.String**| Returns only records whose mode matches. Mode must be one of the allowed modes. | 
+ **qsoBand** | **optional.String**| Returns only records whose band matches. Mode must be one of the allowed bands. | 
  **qsoDxcc** | **optional.Int32**| Returns only records whose DXCC entity matches. (This implies qso_qsl&#x3D;\&quot;yes\&quot; since the DXCC entity of un-QSL&#39;d stations isn&#39;t known to LoTW.) Value must be the ARRL DXCC entity number. | 
  **qsoStartdate** | **optional.String**| Returns only records with a QSO date on or after the specified value. | 
  **qsoStarttime** | **optional.String**| Returns only records with a QSO time at or after the specified value on the starting date. This value is ignored if qso_startdate is not provided. | 
