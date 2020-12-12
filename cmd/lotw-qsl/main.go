@@ -3,9 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+
 	"github.com/antihax/optional"
 	"github.com/k0swe/lotw-qsl"
-	"os"
 )
 
 func main() {
