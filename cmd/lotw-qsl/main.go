@@ -1,4 +1,4 @@
-package main
+6666666package main
 
 import (
 	"flag"
@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	user := flag.String("username", "", "QRZ.com login name")
-	pw := flag.String("password", "", "QRZ.com password")
+	user := flag.String("username", "", "LotW login name")
+	pw := flag.String("password", "", "LotW password")
 	since := flag.String("since", "", "Beginning date to query for; YYYYMMDD format")
 	flag.Parse()
 	if *user == "" || *pw == "" {
