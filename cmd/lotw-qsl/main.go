@@ -1,4 +1,4 @@
-6666666package main
+package main
 
 import (
 	"flag"
